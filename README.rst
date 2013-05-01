@@ -13,6 +13,9 @@ Contains a general pipeline for running RNASeq analysis. This involves convertin
 
 Pipelines were developed in the `Brady Lab <http://www-plb.ucdavis.edu/labs/brady/>`_ at UC Davis
 
+RNAseq analysis outline provided by Oshlack et al. Genome Biology 2010 11:220   doi:10.1186/gb-2010-11-12-220
+
+
 .. image:: http://genomebiology.com/content/figures/gb-2010-11-12-220-1-l.jpg
 Oshlack et al. Genome Biology 2010 11:220   doi:10.1186/gb-2010-11-12-220
 
@@ -25,7 +28,8 @@ Installation
 
 **Required Dependencies**
 
-  - Instances are available on iplant "RNASeq analysis"
+  - Dependencies were installed onto iplant AMI "RNASeq Analysis v1"and are available through `atmosphere <https://atmo.iplantcollaborative.org/application/>`_
+  - Requires bowtie, tophat, samtools, pysam, htseq, edgeR, python2.7
       - Read `INSTALL file for instructions`
 
 Obtaining an Alignment file
