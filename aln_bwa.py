@@ -9,6 +9,15 @@ from itertools import product
 # run dans script...
 ## use one with best params...
 
+def run_best_score(sample_name,index, best_parms):
+    params = best_parms.split(",")
+    params = map(str,params)
+    params_str ="-n " + params[0] + " -k " + params[1]
+    cmd = "bwa aln -t 4 {2} {1}.fa {0}.fastq | bwa samse -r '@RG\\tID:{0}\\tSM:{0}' {1}.fa - {0}.fastq > {0}.sam".format(sample_name,index,params_str)
+    print cmd
+    return commands.getoutput(cmd)
+
+
 
 def drange(start, stop, step):
     range_list = []
@@ -57,8 +66,8 @@ def get_bwa(sample_name,index, params):
 def find_best_score(best_score):
     #sort_by_last_diget.and picks lowest one
     best_score.sort(key=lambda x : x[-1], reverse=True)
-    print best_score
-     return best_score[0][0]
+    print best_score[0][0]
+    return best_score[0][0]
 
 def parse_qualalign(proper_qualalign):
     head = ['Filename', 'Total#Reads', 'NumContigsMatched', 'NumUnaligned', 'NumAligned', 'NumMultiAligned', 'NumSingleAligned', 'NumQualSingles', 'PropQualAligned']
@@ -66,10 +75,7 @@ def parse_qualalign(proper_qualalign):
         res = (line.split("\t"))
         values = map(float,res[1:])
         qual_dic = zip(head[1:],values)
-        print head
-        print values
         return values
-        #print dict(qual_dic)
 
 
 def main(sample_name, index):
@@ -83,8 +89,23 @@ def main(sample_name, index):
         proper_qualalign = commands.getoutput(qa)
         param_key =  str(param).strip("()")
         res = parse_qualalign(proper_qualalign)
-        print res
         quality.append([param_key] + res)
     best_score = find_best_score(quality)
+    run_best_score(sample_name,index, best_score)
 
-main("KO", "genome")
+if __name__ == "__main__":
+        import optparse
+        parser = optparse.OptionParser("usage: %prog [options] ")
+        parser.add_option("-n", dest="sample_name", help="name of file aln")
+        parser.add_option("-i", dest="index", help="index file")
+
+        (options, _) = parser.parse_args()
+        if not (options.sample_name and options.index):
+                    sys.exit(parser.print_help())
+
+        main(options.sample_name, options.index)
+
+
+#main("KO", "genome")
+# -n KO -i genome
+
