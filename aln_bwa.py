@@ -5,6 +5,7 @@
 import commands
 import collections
 from itertools import product
+import sys
 # run BWA...
 # run dans script...
 ## use one with best params...
@@ -38,7 +39,10 @@ def get_params():
     #p = -n, -k,-o, -O, -e, -E
     #d = 0.04, 2, 1, 11, -1, 4
     #all_params = (range(0.04,), range(2), range(1), range(11), range(-1), range(4))
-    all_params = product(drange(0.03,0.06, 0.01), range(0,2)) 
+    ## k max whould cut of at number of seq
+    all_params = product(range(0,4), range(0,20))
+    all_params = list(all_params)
+    print "running {0} permutations".format(len(all_params))
     return list(all_params)
 
 def get_bwa(sample_name,index, params):
@@ -66,13 +70,14 @@ def get_bwa(sample_name,index, params):
 def find_best_score(best_score):
     #sort_by_last_diget.and picks lowest one
     best_score.sort(key=lambda x : x[-1], reverse=True)
-    print best_score[0][0]
+    print best_score[0]
     return best_score[0][0]
 
 def parse_qualalign(proper_qualalign):
     head = ['Filename', 'Total#Reads', 'NumContigsMatched', 'NumUnaligned', 'NumAligned', 'NumMultiAligned', 'NumSingleAligned', 'NumQualSingles', 'PropQualAligned']
     for line in proper_qualalign.split("\n"):
         res = (line.split("\t"))
+        print res
         values = map(float,res[1:])
         qual_dic = zip(head[1:],values)
         return values
@@ -83,12 +88,14 @@ def main(sample_name, index):
     
     quality = []
     #while quality == "poor":
-    for param in get_params():
+    for i,param in enumerate(get_params()):
+        print "running BWA on param {0}".format(i)
         bwa_out = get_bwa(sample_name, index, param)
         qa = "python countxpression.py 20 20 summarystats.txt {0}_head.sam".format(sample_name)
         proper_qualalign = commands.getoutput(qa)
         param_key =  str(param).strip("()")
         res = parse_qualalign(proper_qualalign)
+        print res
         quality.append([param_key] + res)
     best_score = find_best_score(quality)
     run_best_score(sample_name,index, best_score)
