@@ -4,17 +4,36 @@
 #tar -xvf in
 #1-kb window size used in the ChIPDiff program
 
-## Get WT Data
+### Get Data
+
+#Get WT Data
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX031%2FSRX031221/SRR072991/SRR072991.sra
 fastq-dump /home/gturco/data/find_maize/chip/SRR072991.sra
 mv SRR072991.fastq WT.fastq
 
-## Get KO Data
+#Get KO Data
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX031%2FSRX031222/SRR072992/SRR072992.sra
 fastq-dump /home/gturco/data/find_maize/chip/SRR072992.sra
 mv SRR072992.sra KO.fastq
 
-## BWA
+#### QC
+#Data Before
+#TODO find out why can only do from this dir
+./FastQC/fastqc KO.fastq
+./FastQC/fastqc WT.fastq
+
+#trim and QC read
+trimReads -q 20 -m 20 -f adapters.fasta KO.fastq
+trimReads -q 20 -m 20 -f adapters.fasta WT.fastq
+
+#Data After
+./FastQC/fastqc KO.trimmed.fastq
+./FastQC/fastqc WT.trimmed.fastq
+
+
+
+
+#### BWA
 python aln_bwa.py -n KO -i genome
 python aln_bwa.py -n WT -i genome
 
