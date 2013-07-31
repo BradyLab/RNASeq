@@ -28,9 +28,8 @@ Installation
 
 **Required Dependencies**
 
-  - Dependencies were installed onto iplant AMI "RNASeq Analysis v1"and are available through `atmosphere <https://atmo.iplantcollaborative.org/application/>`_
+  - Dependencies were installed onto iplant AMI "RNASeq Analysis v1"and are available through `atmosphere <https://atmo.iplantcollaborative.org/application/>`_  with install instructions `here <https://github.com/BradyLab/atmosphere_images/blob/master/RNASeq.md>`_
   - Requires bowtie, tophat, samtools, pysam, htseq, edgeR, python2.7
-      - Read `INSTALL file for instructions`
 
 Obtaining an Alignment file
 ============================
