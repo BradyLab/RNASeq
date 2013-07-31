@@ -3,7 +3,7 @@
 ### Modified from edgeRUsersGuide revised 14 Dec 2012, Following the example from section 4.3
 ### (http://www.bioconductor.org/packages/2.11/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf
 
-setwd("~/Rwork")
+#setwd("~/Rwork")
 
 source("http://bioconductor.org/biocLite.R")
 biocLite("edgeR")
