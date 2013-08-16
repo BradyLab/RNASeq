@@ -96,7 +96,7 @@ def countxpression(infilename, threshold, lengththresh, zeroforheader1forno, tos
 	if tosort=='text':
 		if int(zeroforheader1forno) == 0:
 			countsout.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % ('Filename', 'Total#Reads', 'NumContigsMatched', 'NumUnaligned', 'NumAligned', 'NumMultiAligned', 'NumSingleAligned', 'NumQualSingles', 'PropQualAligned'))
-		countsout.write('\n%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.3f' % (infilename, totreads, contigsmatched, notaligned, aligned, multi, single, goodmaps, propqualaligned))
+		print ('%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.3f' % (infilename, totreads, contigsmatched, notaligned, aligned, multi, single, goodmaps, propqualaligned))
 
 	
 	OUT.write('ContigName'+'\t'+'UniqueTotReads'+'\t'+'MultiTotReads'+'\t'+'totalreadsgoodmapped')
