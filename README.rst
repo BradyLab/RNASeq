@@ -19,6 +19,11 @@ RNAseq analysis outline provided by Oshlack et al. Genome Biology 2010 11:220   
 .. image:: http://genomebiology.com/content/figures/gb-2010-11-12-220-1-l.jpg
 Oshlack et al. Genome Biology 2010 11:220   doi:10.1186/gb-2010-11-12-220
 
+Funding
+========
+
+National Science Foundation, IOS-1238243 "Integrative Analysis of Plasticity in Cell Fate Determination in Plants"
+
 Installation
 ============
 
